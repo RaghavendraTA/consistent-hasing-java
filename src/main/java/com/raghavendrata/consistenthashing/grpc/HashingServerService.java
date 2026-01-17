@@ -25,12 +25,14 @@ public class HashingServerService extends HashingServiceGrpc.HashingServiceImplB
             request.getPort(),
             request.getWeight()
         ));
+        responseObserver.onNext(getSuccessTrue());
         responseObserver.onCompleted();
     }
 
     @Override
     public void deregisterNode(ConsistentHashing.NodeInfo request, StreamObserver<ConsistentHashing.Ack> responseObserver) {
         ring.removeNode(request.getNodeId());
+        responseObserver.onNext(getSuccessTrue());
         responseObserver.onCompleted();
     }
 
@@ -70,5 +72,9 @@ public class HashingServerService extends HashingServiceGrpc.HashingServiceImplB
                 )
                 .build();
         responseObserver.onNext(state);
+    }
+
+    private ConsistentHashing.Ack getSuccessTrue() {
+        return ConsistentHashing.Ack.newBuilder().setSuccess(true).build();
     }
 }
