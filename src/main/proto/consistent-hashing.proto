@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package hashing;
+
+service HashingService {
+  rpc registerNode (NodeInfo) returns (Ack);
+  rpc deregisterNode (NodeInfo) returns (Ack);
+  rpc resolveKey (KeyRequest) returns (NodeInfo);
+  rpc getRing (Empty) returns (RingState);
+}
+
+message NodeInfo {
+  string nodeId = 1;
+  string host = 2;
+  int32 port = 3;
+  int32 weight = 4; // for virtual nodes
+}
+
+message KeyRequest {
+  string key = 1;
+}
+
+message RingState {
+  repeated NodeInfo nodes = 1;
+}
+
+message Ack {
+  bool success = 1;
+}
+
+message Empty {}

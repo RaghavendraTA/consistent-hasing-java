@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    consul:
+      enabled: false
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+
+grpc:
+  server:
+    enabled: false
